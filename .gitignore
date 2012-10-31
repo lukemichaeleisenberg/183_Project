@@ -1,0 +1,6 @@
+progress.log
+cache/*
+errors/*
+sessions/*
+*.pyc
+*.bak
