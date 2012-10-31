@@ -6,4 +6,4 @@
 {{=LI(A(clinic.name, _href=URL("view", args=clinic.id)))}}
 {{pass}}
 </ul>
-<p>{{=A('Edit your clinic', _href=URL('edit'))}}</p>
+A(Edit your clinic, _href=URL("edit"))

@@ -26,7 +26,7 @@ def view():
 
 @auth.requires_login()    
 def edit():
-    form = SQLFORM(db.clinics)
+    form = SQLFORM(db.notes)
     if form.process().accepted:
         session.flash = T('Changes updated.')
         redirect(URL('index'))
