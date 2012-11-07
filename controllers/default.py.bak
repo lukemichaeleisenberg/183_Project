@@ -10,23 +10,31 @@
 #########################################################################
 
 def index():
-    """
-    example action using the internationalization operator T and flash
-    rendered by views/default/index.html or views/generic.html
+    if request.vars.search:
+        session.query = request.vars.search
+        redirect(URL('second'))
+    return dict()
 
-    if you need a simple wiki simple replace the two lines below with:
-    return auth.wiki()
-    """
-    clinics = db().select(db.clinics.ALL)
-    return dict(clinics=clinics)
+def results():
+    return dict(grid=SQLFORM.grid(session.query, fields=db.clinics.name))
 
 def view():
     clinic = db.clinics(request.args[0]) or redirect(URL('index'))
     return dict(clinic=clinic)
+    
+def providers():
+    return dict()
+
+def manage():
+    grid = SQLFORM.grid(db.clinics)
+    return locals()
+
+def providers():
+    return dict()
 
 @auth.requires_login()    
 def edit():
-    form = SQLFORM(db.notes)
+    form = SQLFORM(db.clinics)
     if form.process().accepted:
         session.flash = T('Changes updated.')
         redirect(URL('index'))

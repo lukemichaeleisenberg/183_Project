@@ -1,9 +1,10 @@
 {{extend 'layout.html'}}
 
-<h1>Clinics in Santa Cruz</h1>
+<h2>Community Suported Clinics in Santa Cruz</h2>
+<p> Welcome to CareConnect, a web service designed to help you locate local community supported health services in Santa Cruz County. To get started, enter a search query in the box below:
+
 <ul>
 {{for clinic in clinics:}}
 {{=LI(A(clinic.name, _href=URL("view", args=clinic.id)))}}
 {{pass}}
 </ul>
-A(Edit your clinic, _href=URL("edit"))

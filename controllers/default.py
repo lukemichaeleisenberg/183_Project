@@ -1,28 +1,28 @@
 # -*- coding: utf-8 -*-
-# this file is released under public domain and you can use without limitations
-
-#########################################################################
-## This is a samples controller
-## - index is the default action of any application
-## - user is required for authentication and authorization
-## - download is for downloading files uploaded in the db (does streaming)
-## - call exposes all registered services (none by default)
-#########################################################################
 
 def index():
-    """
-    example action using the internationalization operator T and flash
-    rendered by views/default/index.html or views/generic.html
+    if request.vars.search:
+        session.query = request.vars.search
+        redirect(URL('second'))
+    return dict()
 
-    if you need a simple wiki simple replace the two lines below with:
-    return auth.wiki()
-    """
-    clinics = db().select(db.clinics.ALL)
-    return dict(clinics=clinics)
+def results():
+    return dict(grid=SQLFORM.grid(session.query, fields=db.clinics.name))
 
 def view():
     clinic = db.clinics(request.args[0]) or redirect(URL('index'))
     return dict(clinic=clinic)
+    
+def providers():
+    return dict()
+
+@auth.requires_login()
+def manage():
+    grid = SQLFORM.grid(db.clinics,)
+    return locals()
+
+def providers():
+    return dict()
 
 @auth.requires_login()    
 def edit():
