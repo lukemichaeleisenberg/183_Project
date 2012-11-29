@@ -3,23 +3,20 @@
 db.define_table('clinics',
     Field('user', db.auth_user, default=auth.user_id),
     Field('name', 'string', required=True),
-    Field('image', 'upload'),
+    Field('street_address', 'string'),
+    Field('city', 'string'),
+    Field('zip', 'string'),
     Field('email', 'string'),
     Field('phone', 'string'),
     Field('address', 'string'),
     Field('description', 'text'),
-    Field('services', 'reference services'),
     format='%(name)s'
     )
 
-db.define_table('service',
-    Field('thing', 'string'),
-    format='%(name)s'
-)
-
 db.define_table('services',
-    Field('user', db.clinics),
-    Field('service', db.service),
+    Field('STI_Testing', 'boolean'),
+    Field('Emergency_Medical_Services', 'boolean'),
+    Field('clinic', 'reference clinics'),
     )
 
 db.clinics.user.writable = db.clinics.user.readable = False    

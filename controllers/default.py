@@ -1,13 +1,18 @@
 # -*- coding: utf-8 -*-
 
 def index():
-    if request.vars.search:
-        session.query = request.vars.search
-        redirect(URL('second'))
-    return dict()
+    query = SQLFORM.factory(Field('Service', requires = IS_IN_SET(['STI_Testing', 'Emergency_Medical_Services'], error_message='Requires a selection.')))
+    if query.process().accepted:
+        session.query = query.vars.Service
+        redirect(URL('results'))
+    return dict(query=query)
 
 def results():
-    return dict(grid=SQLFORM.grid(session.query, fields=db.clinics.name))
+    if session.query == 'STI_Testing':
+        db(db.clinics.services.STI_Testing==True).select(fields==name)
+    elif session.query == 'Emergency_Medical_Services':
+        db(db.clinics.services.Emergency_Medical_Services==True).select(fields==name)
+    return dict(results=results)
 
 def view():
     clinic = db.clinics(request.args[0]) or redirect(URL('index'))
@@ -17,8 +22,9 @@ def providers():
     return dict()
 
 @auth.requires_login()
+@auth.requires_permission('isAdmin')
 def manage():
-    grid = SQLFORM.grid(db.clinics,)
+    grid = SQLFORM.grid(db.clinics)
     return locals()
 
 def providers():
@@ -26,11 +32,50 @@ def providers():
 
 @auth.requires_login()    
 def edit():
-    form = SQLFORM(db.clinics)
+    form = SQLFORM.factory(
+    Field('Name', requires=IS_NOT_EMPTY(error_message='requires a value')),
+    Field('Address', 'string'),
+    Field('City', 'string'),
+    Field('Zip', 'string'),
+    Field('Phone'),
+    Field('Email', 'string', requires=IS_EMAIL(error_message='must be a valid email')),
+    Field('Description', 'text'),
+    )
     if form.process().accepted:
-        session.flash = T('Changes updated.')
+        session.name = form.vars.Name
+        session.address = form.vars.Address
+        session.city = form.vars.City
+        session.zip = form.vars.Zip
+        session.phone = form.vars.Phone
+        session.email = form.vars.email
+        session.description = form.vars.Description
+        session.id = form.vars.id
+        redirect(URL('editservices'))
+    return dict(form=form, session=session)
+
+@auth.requires_login() 
+def editservices():
+    form = SQLFORM.factory(
+    Field('STI_Testing', 'boolean'),
+    Field('Emergency_Medical_Services', 'boolean')
+    )
+    if form.process().accepted:
+        db.clinics.insert(
+        name = session.name, 
+        street_address = session.address,
+        city = session.city,
+        zip = session.zip,
+        phone = session.phone,
+        email = session.email,
+        description = session.description
+        )
+        db.services.insert(
+        STI_Testing = form.vars.STI_Testing,
+        Emergency_Medical_Services = form.vars.Emergency_Medical_Services,
+        clinic = session.id
+        )
         redirect(URL('index'))
-    return dict(form=form)
+    return dict(form=form, session=session)
 
 def user():
     """
