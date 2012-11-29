@@ -32,50 +32,66 @@ def providers():
 
 @auth.requires_login()    
 def edit():
-    form = SQLFORM.factory(
-    Field('Name', requires=IS_NOT_EMPTY(error_message='requires a value')),
-    Field('Address', 'string'),
-    Field('City', 'string'),
-    Field('Zip', 'string'),
-    Field('Phone'),
-    Field('Email', 'string', requires=IS_EMAIL(error_message='must be a valid email')),
-    Field('Description', 'text'),
-    )
-    if form.process().accepted:
-        session.name = form.vars.Name
-        session.address = form.vars.Address
-        session.city = form.vars.City
-        session.zip = form.vars.Zip
-        session.phone = form.vars.Phone
-        session.email = form.vars.email
-        session.description = form.vars.Description
-        session.id = form.vars.id
-        redirect(URL('editservices'))
+    if auth.has_permission('canEditClinic'):
+        return dict(form=crud.update(db.clinics, user.clinic))
+        #need to revoke permissions after delete
+    else:
+        form = SQLFORM.factory(
+        Field('Name', requires=IS_NOT_EMPTY(error_message='requires a value')),
+        Field('Address', 'string'),
+        Field('City', 'string'),
+        Field('Zip', 'string'),
+        Field('Phone'),
+        Field('Email', 'string', requires=IS_EMAIL(error_message='must be a valid email')),
+        Field('Description', 'text'),
+        )
+        if form.process().accepted:
+            session.name = form.vars.Name
+            session.address = form.vars.Address
+            session.city = form.vars.City
+            session.zip = form.vars.Zip
+            session.phone = form.vars.Phone
+            session.email = form.vars.email
+            session.description = form.vars.Description
+            session.id = form.vars.id
+            redirect(URL('editservices'))
     return dict(form=form, session=session)
 
 @auth.requires_login() 
 def editservices():
-    form = SQLFORM.factory(
-    Field('STI_Testing', 'boolean'),
-    Field('Emergency_Medical_Services', 'boolean')
-    )
-    if form.process().accepted:
-        db.clinics.insert(
-        name = session.name, 
-        street_address = session.address,
-        city = session.city,
-        zip = session.zip,
-        phone = session.phone,
-        email = session.email,
-        description = session.description
+    if auth.has_permission('canEditServices'):
+        crud.update(db.services, user.services)
+        #need to revoke permissions after delete
+    else: 
+        form = SQLFORM.factory(
+        Field('STI_Testing', 'boolean'),
+        Field('Emergency_Medical_Services', 'boolean')
         )
-        db.services.insert(
-        STI_Testing = form.vars.STI_Testing,
-        Emergency_Medical_Services = form.vars.Emergency_Medical_Services,
-        clinic = session.id
-        )
-        redirect(URL('index'))
+        if form.process().accepted:
+            db.clinics.insert(
+            name = session.name, 
+            street_address = session.address,
+            city = session.city,
+            zip = session.zip,
+            phone = session.phone,
+            email = session.email,
+            description = session.description
+            )
+            db.services.insert(
+            STI_Testing = form.vars.STI_Testing,
+            Emergency_Medical_Services = form.vars.Emergency_Medical_Services,
+            clinic = session.id
+            )
+            user.clinic=session.id
+            user.services=form.vars.id
+            auth.add_permission(user.id, 'canEditClinic')
+            auth.add_permission(user.id, 'canEditServices')
+            redirect(URL('index'))
     return dict(form=form, session=session)
+    
+def deleteServicesPerm():
+    
+    return dict
 
 def user():
     """

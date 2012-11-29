@@ -99,3 +99,7 @@ timestamp: 2012-11-28T23:52:33.098818
 ALTER TABLE clinics ADD street_address CHAR(512);
 timestamp: 2012-11-29T00:21:16.334358
 ALTER TABLE services ADD clinic INTEGER REFERENCES clinics (id) ON DELETE CASCADE;
+timestamp: 2012-11-29T01:18:58.253954
+ALTER TABLE auth_user ADD clinic CHAR(512);
+timestamp: 2012-11-29T01:18:58.255629
+ALTER TABLE auth_user ADD services CHAR(512);

@@ -27,13 +27,13 @@ p12
 ssS'user'
 p13
 (dp14
-S'type'
+S'sortable'
 p15
-S'reference clinics'
-p16
-sS'sortable'
-p17
 I2
+sS'type'
+p16
+S'reference clinics'
+p17
 sS'sql'
 p18
 S'INTEGER REFERENCES clinics (id) ON DELETE CASCADE'
@@ -42,10 +42,10 @@ ssS'service'
 p20
 (dp21
 g15
+I3
+sg16
 S'reference service'
 p22
-sg17
-I3
 sg18
 S'INTEGER REFERENCES service (id) ON DELETE CASCADE'
 p23

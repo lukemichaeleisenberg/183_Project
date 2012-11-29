@@ -37,13 +37,13 @@ p15
 ssS'image'
 p16
 (dp17
-S'type'
+S'sortable'
 p18
-S'upload'
-p19
-sS'sortable'
-p20
 I4
+sS'type'
+p19
+S'upload'
+p20
 sS'sql'
 p21
 S'CHAR(512)'
@@ -51,13 +51,13 @@ p22
 ssS'seller'
 p23
 (dp24
-S'sortable'
+S'type'
 p25
-I2
-sS'type'
-p26
 S'reference auth_user'
+p26
+sS'sortable'
 p27
+I2
 sS'sql'
 p28
 S'INTEGER REFERENCES auth_user (id) ON DELETE CASCADE'
@@ -72,61 +72,61 @@ I8
 sg7
 S'CHAR(512)'
 p32
-ssS'email'
+ssS'id'
 p33
 (dp34
 g4
-g5
-sg6
-I7
-sg7
-S'CHAR(512)'
+S'id'
 p35
-ssS'user'
+sg6
+I1
+sg7
+S'INTEGER PRIMARY KEY AUTOINCREMENT'
 p36
-(dp37
+ssS'user'
+p37
+(dp38
 g4
 S'reference auth_user'
-p38
+p39
 sg6
 I2
 sg7
 S'INTEGER REFERENCES auth_user (id) ON DELETE CASCADE'
-p39
-ssS'address'
 p40
-(dp41
+ssS'address'
+p41
+(dp42
 g4
 g5
 sg6
 I9
 sg7
 S'CHAR(512)'
-p42
-ssS'services'
 p43
-(dp44
-S'sortable'
-p45
-I11
-sS'type'
+ssS'services'
+p44
+(dp45
+S'type'
 p46
 S'reference services'
 p47
-sS'sql'
+sS'sortable'
 p48
-S'INTEGER REFERENCES services (id) ON DELETE CASCADE'
+I11
+sS'sql'
 p49
-ssS'id'
+S'INTEGER REFERENCES services (id) ON DELETE CASCADE'
 p50
-(dp51
+ssS'email'
+p51
+(dp52
 g4
-S'id'
-p52
+g5
 sg6
-I1
+I7
 sg7
-S'INTEGER PRIMARY KEY AUTOINCREMENT'
+S'CHAR(512)'
 p53
 ssS'street_address'
 p54
