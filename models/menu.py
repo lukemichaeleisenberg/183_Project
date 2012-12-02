@@ -6,7 +6,7 @@
 #########################################################################
 
 response.title = 'CareConnect'
-response.subtitle = T('Community Supported Health Providers')
+response.subtitle = T('Community-Based Health Providers')
 
 ## read more at http://dev.w3.org/html5/markup/meta.name.html
 response.meta.author = 'Luke Eisenberg <leisenbe@ucsc.edu>'

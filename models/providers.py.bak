@@ -8,15 +8,15 @@ db.define_table('clinics',
     Field('zip', 'string'),
     Field('email', 'string'),
     Field('phone', 'string'),
-    Field('address', 'string'),
+    Field('hours_days', 'text'),
     Field('description', 'text'),
-    Field('services', 'reference services'),
     format='%(name)s'
     )
 
 db.define_table('services',
     Field('STI_Testing', 'boolean'),
-    Field('Emergency_Medical_Services', 'boolean')
+    Field('Emergency_Medical_Services', 'boolean'),
+    Field('clinic', 'reference clinics'),
     )
 
 db.clinics.user.writable = db.clinics.user.readable = False    

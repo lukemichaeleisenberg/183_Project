@@ -103,3 +103,7 @@ timestamp: 2012-11-29T01:18:58.253954
 ALTER TABLE auth_user ADD clinic CHAR(512);
 timestamp: 2012-11-29T01:18:58.255629
 ALTER TABLE auth_user ADD services CHAR(512);
+timestamp: 2012-11-29T15:50:10.826108
+ALTER TABLE clinics ADD hours_days TEXT;
+timestamp: 2012-11-29T16:06:29.467662
+ALTER TABLE clinics ADD organization CHAR(512);
