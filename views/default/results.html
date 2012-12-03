@@ -1,6 +1,5 @@
 {{extend 'layout.html'}}
 {{for result in results:}}
-	{{=A(result.clinic.organization, _href=URL('view', args=[result.clinic.id]))}}
-	
-	<BR>
+	{{=A(clinic.organization, _href=URL('view', args=[services.clinic.id]))}}
+<BR>
 {{pass}}

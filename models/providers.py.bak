@@ -14,11 +14,15 @@ db.define_table('clinics',
     )
 
 db.define_table('services',
-    Field('STI_Testing', 'boolean'),
-    Field('Emergency_Medical_Services', 'boolean'),
-    Field('clinic', 'reference clinics'),
+    Field('service'),
+    )
+    
+db.define_table('offers',
+    Field('service', db.services),
+    Field('clinic', db.clinics),
     )
 
-db.clinics.user.writable = db.clinics.user.readable = False    
+db.clinics.user.writable = db.clinics.user.readable = False 
+db.clinics.id.writable = False
 db.clinics.email.requires = IS_EMAIL()
 db.clinics.phone.requires = IS_MATCH('\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$')
