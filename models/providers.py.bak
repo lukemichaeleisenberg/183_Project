@@ -2,7 +2,7 @@
 
 db.define_table('clinics',
     Field('user', db.auth_user, default=auth.user_id),
-    Field('name', 'string', required=True),
+    Field('organization', 'string', required=True),
     Field('street_address', 'string'),
     Field('city', 'string'),
     Field('zip', 'string'),

@@ -19,6 +19,7 @@ db.define_table('services',
     Field('clinic', 'reference clinics'),
     )
 
-db.clinics.user.writable = db.clinics.user.readable = False    
+db.clinics.user.writable = db.clinics.user.readable = False 
+db.clinics.id.writable = False
 db.clinics.email.requires = IS_EMAIL()
 db.clinics.phone.requires = IS_MATCH('\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$')

@@ -13,7 +13,7 @@ ul.web2py-menu-vertical li { margin:0; padding:0; border:0; width: 150px; backgr
 ul.web2py-menu-vertical li a { margin:0; padding: 1px 3px 1px 3px; border:0; width: 144px; color: white; font-size:12px;}
 div.flash { position: fixed; float: right; padding: 10px; top: 10px; right: 30px; opacity: 0.75; margin: 10px 10px 10px 10px; text-align: center; clear: both; color: #fff; font-size: 11pt; text-align: center; vertical-align: middle; cursor: pointer; background: black; border: 2px solid #fff; -moz-border-radius: 5px; -webkit-border-radius: 5px; z-index: 2; }
 div.error { background-color: red; color: white; padding: 3px; }
-.auth_navbar { text-align:right; z-index:20; position: absolute; top: 2px; right:30px; border:0; padding:0 }
+.auth_navbar { text-align:right; z-index:20; position: absolute; top:2px; right:30px; border:0; padding:0 }
   </style>
  </head>
  <body>
@@ -37,80 +37,6 @@ div.error { background-color: red; color: white; padding: 3px; }
       jQuery(document).ready(function(){jQuery('ul.web2py-menu').superfish({delay:400});});
     </script>
       </div>
-      <div id="side_content">
-       <div class="side_title">
-        Latest news
-       </div>
-       <div class="sidenotes">
-        <ul>
-         <li>
-          <a href="#">
-           <span class="title">
-            Lorem ipsum
-           </span>
-           <span class="date">
-            20.08.2006
-           </span>
-           Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-          </a>
-         </li>
-         <li>
-          <a href="#">
-           <span class="title">
-            Vivamus nulla
-           </span>
-           <span class="date">
-            21.08.2006
-           </span>
-           Vivamus nulla   ipsum, rutrum scelerisque, imperdiet sit amet, malesuada ultrices, mi.
-          </a>
-         </li>
-         <li>
-          <a href="#">
-           <span class="title">
-            Vivamus dapibus
-           </span>
-           <span class="date">
-            21.08.2006
-           </span>
-           Vivamus dapibus, sapien vel venenatis eleifend, pede lacus mattis felis.
-          </a>
-         </li>
-         <li>
-          <span class="more">
-           <a href="#" title="View all the news.">
-            MORE NEWS
-            <img src="img/more.gif" alt="View all the news." width="7" height="7" />
-           </a>
-          </span>
-         </li>
-        </ul>
-       </div>
-       <div class="side_title">
-        Community
-       </div>
-       <div>
-        <input name="user" type="text" class="styled" id="user" value="Username" onfocus="if(this.value == 'Username') this.value = '';" onblur="if(this.value == '') this.value = 'Username';" size="30" />
-        <br />
-        <input name="pass" type="password" class="styled" id="pass" value="Password" onfocus="if(this.value == 'Password') this.value = '';" onblur="if(this.value == '') this.value = 'Password';" size="30" />
-        <br />
-        <input name="login" type="button" class="styled" id="login" value="Login" />
-        <br />
-        <span class="login_text">
-         <a href="#" title="Click here to make a new account.">
-          Sign up now!
-         </a>
-         |
-         <a href="#" title="Click here if you forgot your password.">
-          Recover password
-         </a>
-        </span>
-       </div>
-       <div class="side_title">
-        Other stuff
-       </div>
-       <div>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vivamus nulla   ipsum, rutrum scelerisque, imperdiet sit amet, malesuada ultrices, mi. Phasellus id pede.
        </div>
       </div>
      </div>
@@ -118,26 +44,6 @@ div.error { background-color: red; color: white; padding: 3px; }
       <div class="flash">{{=response.flash or ''}}</div>
       {{include}}
      </div>
-     <div id="footer_clear">
-      <!--DO NOT REMOVE THIS DIV-->
-     </div>
-     <div id="footer">
-      Copyright &copy;2008 Your site. All rights reserved. Based on a design by
-      <a href="http://www.elemental-works.com/free-web-templates/" target="_blank">
-       Free Web Templates - Elemental Works
-      </a>
-      . Valid
-      <a href="http://validator.w3.org/check?uri=referer" target="_blank" title="Check the XHTML validity of this page.">
-       XHTML
-      </a>
-      &amp;
-      <a href="http://jigsaw.w3.org/css-validator/check/referer" target="_blank" title="Check the CSS validity of this page.">
-       CSS
-      </a>
-      .
-     </div>
     </div>
-   </div>
-  </div>
  </body>
 </html>

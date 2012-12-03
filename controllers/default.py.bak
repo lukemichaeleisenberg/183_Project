@@ -5,7 +5,7 @@ def index():
     if query.process().accepted:
         session.query = query.vars.Service
         redirect(URL('results'))
-    return dict(query=query)
+    return dict(query=query, session=session)
 
 def results():
     query = session.query == True
@@ -31,9 +31,16 @@ def providers():
 @auth.requires_login()    
 def edit():
     if auth.has_permission('canEditClinic', user_id=auth.user_id):
-        clinic = db.clinics(db.auth_user.clinic).select()
-        form = SQLFORM(table=db.clinics, record=clinic)
-        return dict(form=form)
+        clinic = db.clinics(auth.user_id==db.clinics.user)
+        form = SQLFORM(table=db.clinics, record=clinic, deleteable=True)
+        if form.process().accepted:
+            redirect(URL('editservices'))
+        if form.deleted == True:
+            crud.delete(db.services, db.auth_user.services)
+            auth.del_permission(auth.user_id, 'canEditClinic')
+            auth.del_permission(auth.user_id, 'canEditServices')
+            redirect(URL('index'))
+        return dict(form=form, clinic=clinic)
     else:
         form = SQLFORM.factory(
         Field('Organization', requires=IS_NOT_EMPTY(error_message='requires a value')),
@@ -55,18 +62,12 @@ def edit():
             session.clinicid = form.vars.id
             redirect(URL('editservices'))
     return dict(form=form, session=session)
-    
-def delete_clinic():
-    crud.delete(db.services, db.auth_user.services)
-    auth.del_permission(auth.user_id, 'canEditClinic')
-    auth.del_permission(auth.user_id, 'canEditServices')
-    return dict()
 
 @auth.requires_login() 
 def editservices():
     if auth.has_permission('canEditServices', user_id=auth.user_id):
-        row = db.clinics[auth_user.clinic]
-        form = crud.update(db.clinics, row, deletable=False)
+        clinic = db.clinics(auth.user_id==db.clinics.user)
+        form = SQLFORM(table=db.clinics, record=clinic, deleteable=True)
         return form
     else:
         form = SQLFORM.factory(
@@ -88,8 +89,6 @@ def editservices():
             Emergency_Medical_Services = form.vars.Emergency_Medical_Services,
             clinic = session.clinicid
             )
-            user = db(db.auth_user.id==auth.user_id).select().first()
-            user.update_record(clinic=session.clinicid, services=form.vars.id)
             auth.add_permission(auth.user_id, 'canEditClinic')
             auth.add_permission(auth.user_id, 'canEditServices')
             redirect(URL('index'))
