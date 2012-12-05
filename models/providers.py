@@ -14,12 +14,9 @@ db.define_table('clinics',
     )
 
 db.define_table('services',
-    Field('service'),
-    )
-    
-db.define_table('offers',
-    Field('service_id', db.services),
-    Field('clinic_id', db.clinics),
+    Field('STI_Testing', 'boolean'),
+    Field('Emergency_Medical_Services', 'boolean'),
+    Field('clinic', 'reference clinics'),
     )
 
 db.clinics.user.writable = db.clinics.user.readable = False 
