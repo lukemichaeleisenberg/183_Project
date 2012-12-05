@@ -1,6 +1,10 @@
 {{extend 'layout.html'}}
 <h2>Edit your clinic's information.</h2>
 <br>
+<<<<<<< HEAD
 {{=clinic}}
+=======
+{{=type(clinic)}}
+>>>>>>> parent of 84a73b9... Changed to a many to many relationship
 <br>
 {{=form}}

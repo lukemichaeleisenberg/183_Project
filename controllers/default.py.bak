@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 def index():
+<<<<<<< HEAD
     query = SQLFORM.factory(Field('Service', requires = IS_IN_SET(['STI_Testing', 'Emergency_Medical_Services'], error_message='Requires a selection.')))
     if query.process().accepted:
         session.query = query.vars.Service
@@ -11,6 +12,20 @@ def results():
     query = session.query == True
     results = db.services(query)
     return dict(results=results)
+=======
+    service_names = db(db.services.ALL).select(db.services.service).as_list()
+    service_names_list = [x['service'] for x in service_names]
+    query = SQLFORM.factory(Field('service', requires=IS_IN_LIST(service_names_list)))
+    if query.process().accepted:
+        session.query = query.vars.service
+        redirect(URL('results'))
+
+    return dict(query=query, session=session)
+
+def results():
+    c = db((db.services.service == session.query) & (db.offers.service_id == db.services.id) & (db.offers.clinic_id == db.clinics.id)).select()
+    return dict(results=c)
+>>>>>>> parent of 84a73b9... Changed to a many to many relationship
 
 def view():
     clinic = db.clinics(request.args[0]) or redirect(URL('index'))

@@ -47,6 +47,7 @@ p18
 ssS'image'
 p19
 (dp20
+<<<<<<< HEAD
 S'type'
 p21
 S'upload'
@@ -54,6 +55,15 @@ p22
 sS'sortable'
 p23
 I4
+=======
+S'sortable'
+p21
+I4
+sS'type'
+p22
+S'upload'
+p23
+>>>>>>> parent of 84a73b9... Changed to a many to many relationship
 sS'sql'
 p24
 S'CHAR(512)'
@@ -61,6 +71,7 @@ p25
 ssS'seller'
 p26
 (dp27
+<<<<<<< HEAD
 S'sortable'
 p28
 I2
@@ -134,12 +145,89 @@ p56
 ssS'organization'
 p57
 (dp58
+=======
+S'type'
+p28
+S'reference auth_user'
+p29
+sS'sortable'
+p30
+I2
+sS'sql'
+p31
+S'INTEGER REFERENCES auth_user (id) ON DELETE CASCADE'
+p32
+ssS'phone'
+p33
+(dp34
+g4
+g5
+sg6
+I8
+sg7
+S'CHAR(512)'
+p35
+ssS'id'
+p36
+(dp37
+g4
+S'id'
+p38
+sg6
+I1
+sg7
+S'INTEGER PRIMARY KEY AUTOINCREMENT'
+p39
+ssS'user'
+p40
+(dp41
+g4
+S'reference auth_user'
+p42
+sg6
+I2
+sg7
+S'INTEGER REFERENCES auth_user (id) ON DELETE CASCADE'
+p43
+ssS'address'
+p44
+(dp45
+S'sortable'
+p46
+I9
+sS'type'
+p47
+S'string'
+p48
+sS'sql'
+p49
+S'CHAR(512)'
+p50
+ssS'services'
+p51
+(dp52
+S'type'
+p53
+S'reference services'
+p54
+sS'sortable'
+p55
+I11
+sS'sql'
+p56
+S'INTEGER REFERENCES services (id) ON DELETE CASCADE'
+p57
+ssS'organization'
+p58
+(dp59
+>>>>>>> parent of 84a73b9... Changed to a many to many relationship
 g4
 g5
 sg6
 I3
 sg7
 S'CHAR(512)'
+<<<<<<< HEAD
 p59
 ssS'id'
 p60
@@ -151,6 +239,18 @@ sg6
 I1
 sg7
 S'INTEGER PRIMARY KEY AUTOINCREMENT'
+=======
+p60
+ssS'email'
+p61
+(dp62
+g4
+g5
+sg6
+I7
+sg7
+S'CHAR(512)'
+>>>>>>> parent of 84a73b9... Changed to a many to many relationship
 p63
 ssS'street_address'
 p64
@@ -165,6 +265,7 @@ p66
 ssS'name'
 p67
 (dp68
+<<<<<<< HEAD
 S'sortable'
 p69
 I3
@@ -172,6 +273,15 @@ sS'type'
 p70
 S'string'
 p71
+=======
+S'type'
+p69
+S'string'
+p70
+sS'sortable'
+p71
+I3
+>>>>>>> parent of 84a73b9... Changed to a many to many relationship
 sS'sql'
 p72
 S'CHAR(512)'
