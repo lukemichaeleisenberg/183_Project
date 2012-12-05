@@ -35,6 +35,7 @@ p18
 S'upload'
 p19
 <<<<<<< HEAD
+<<<<<<< HEAD
 (dp20
 <<<<<<< HEAD
 S'type'
@@ -53,6 +54,11 @@ p22
 S'upload'
 p23
 >>>>>>> parent of 84a73b9... Changed to a many to many relationship
+=======
+sS'sortable'
+p20
+I4
+>>>>>>> 84a73b9... Changed to a many to many relationship
 =======
 sS'sortable'
 p20
@@ -77,6 +83,7 @@ p26
 (dp27
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 S'sortable'
 p28
 I2
@@ -86,10 +93,28 @@ S'reference auth_user'
 p30
 sS'sql'
 p31
-S'INTEGER REFERENCES auth_user (id) ON DELETE CASCADE'
+=======
+g11
+S'string'
+p28
+sg13
+I8
+sg14
+S'CHAR(512)'
+p29
+ssS'user'
+p30
+(dp31
+g11
+S'reference auth_user'
 p32
-ssS'phone'
+sg13
+I2
+sg14
+>>>>>>> 84a73b9... Changed to a many to many relationship
+S'INTEGER REFERENCES auth_user (id) ON DELETE CASCADE'
 p33
+<<<<<<< HEAD
 (dp34
 g4
 g5
@@ -277,12 +302,87 @@ p63
 ssS'street_address'
 =======
 >>>>>>> 84a73b9... Changed to a many to many relationship
+=======
+ssS'address'
+p34
+(dp35
+S'type'
+p36
+S'string'
+p37
+sS'sortable'
+p38
+I9
+sS'sql'
+p39
+S'CHAR(512)'
+p40
+ssS'services'
+p41
+(dp42
+S'sortable'
+p43
+I11
+sS'type'
+p44
+S'reference services'
+p45
+sS'sql'
+p46
+S'INTEGER REFERENCES services (id) ON DELETE CASCADE'
+p47
+ssS'id'
+p48
+(dp49
+g11
+S'id'
+p50
+sg13
+I1
+sg14
+S'INTEGER PRIMARY KEY AUTOINCREMENT'
+p51
+ssS'city'
+p52
+(dp53
+g11
+g28
+sg13
+I5
+sg14
+S'CHAR(512)'
+p54
+ssS'name'
+p55
+(dp56
+S'sortable'
+p57
+I3
+sS'type'
+p58
+S'string'
+p59
+sS'sql'
+p60
+S'CHAR(512)'
+p61
+ssS'zip'
+p62
+(dp63
+g11
+g28
+sg13
+I6
+sg14
+S'CHAR(512)'
+>>>>>>> 84a73b9... Changed to a many to many relationship
 p64
 ssS'seller'
 p65
 (dp66
 S'sortable'
 p67
+<<<<<<< HEAD
 <<<<<<< HEAD
 (dp68
 <<<<<<< HEAD
@@ -302,14 +402,25 @@ p68
 S'reference auth_user'
 >>>>>>> 84a73b9... Changed to a many to many relationship
 p69
+=======
+I2
+sS'type'
+p68
+S'reference auth_user'
+p69
+>>>>>>> 84a73b9... Changed to a many to many relationship
 sS'sql'
 p70
 S'INTEGER REFERENCES auth_user (id) ON DELETE CASCADE'
 p71
 <<<<<<< HEAD
+<<<<<<< HEAD
 I3
 >>>>>>> parent of 84a73b9... Changed to a many to many relationship
 sS'sql'
+=======
+ssS'organization'
+>>>>>>> 84a73b9... Changed to a many to many relationship
 =======
 ssS'organization'
 >>>>>>> 84a73b9... Changed to a many to many relationship

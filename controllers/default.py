@@ -3,6 +3,7 @@
 def index():
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     query = SQLFORM.factory(Field('Service', requires = IS_IN_SET(['STI_Testing', 'Emergency_Medical_Services'], error_message='Requires a selection.')))
     if query.process().accepted:
         session.query = query.vars.Service
@@ -31,6 +32,19 @@ def results():
     return dict(results=c)
 >>>>>>> parent of 84a73b9... Changed to a many to many relationship
 =======
+    results = db((db.services.service == session.q)).select()
+    return dict(results=results)
+>>>>>>> 84a73b9... Changed to a many to many relationship
+=======
+    service_names = db().select(db.services.service).as_list()
+    service_names_list = [x['service'] for x in service_names]
+    q = SQLFORM.factory(Field('service', requires=IS_IN_SET(service_names_list)))
+    if q.process().accepted:
+        session.q = q
+        redirect(URL('results'))
+    return dict(q=q, session=session)
+
+def results():
     results = db((db.services.service == session.q)).select()
     return dict(results=results)
 >>>>>>> 84a73b9... Changed to a many to many relationship

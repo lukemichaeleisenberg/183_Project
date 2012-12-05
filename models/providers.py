@@ -20,8 +20,12 @@ db.define_table('services',
     )
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     
+=======
+
+>>>>>>> 84a73b9... Changed to a many to many relationship
 =======
 
 >>>>>>> 84a73b9... Changed to a many to many relationship
