@@ -107,3 +107,12 @@ timestamp: 2012-11-29T15:50:10.826108
 ALTER TABLE clinics ADD hours_days TEXT;
 timestamp: 2012-11-29T16:06:29.467662
 ALTER TABLE clinics ADD organization CHAR(512);
+timestamp: 2012-12-03T16:07:18.676480
+CREATE TABLE offers(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    service_id INTEGER REFERENCES services (id) ON DELETE CASCADE,
+    clinic_id INTEGER REFERENCES clinics (id) ON DELETE CASCADE
+);
+success!
+timestamp: 2012-12-04T17:41:38.234433
+ALTER TABLE clinics ADD days_hours TEXT;
