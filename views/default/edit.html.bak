@@ -2,9 +2,14 @@
 <h2>Edit your clinic's information.</h2>
 <br>
 <<<<<<< HEAD
+<<<<<<< HEAD
 {{=clinic}}
 =======
 {{=type(clinic)}}
 >>>>>>> parent of 84a73b9... Changed to a many to many relationship
 <br>
+=======
+>>>>>>> 84a73b9... Changed to a many to many relationship
 {{=form}}
+
+{{if auth.has_permission('canEditClinic'):}} {{=A('Does your clinic no longer provide services? Click here to delete your clinic from the database.', _href=URL('delete', args=[clinic.id]))}} {{else:}} {{pass}}

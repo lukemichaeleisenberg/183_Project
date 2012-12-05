@@ -2,6 +2,7 @@
 
 def index():
 <<<<<<< HEAD
+<<<<<<< HEAD
     query = SQLFORM.factory(Field('Service', requires = IS_IN_SET(['STI_Testing', 'Emergency_Medical_Services'], error_message='Requires a selection.')))
     if query.process().accepted:
         session.query = query.vars.Service
@@ -14,23 +15,30 @@ def results():
     return dict(results=results)
 =======
     service_names = db(db.services.ALL).select(db.services.service).as_list()
+=======
+    service_names = db().select(db.services.service).as_list()
+>>>>>>> 84a73b9... Changed to a many to many relationship
     service_names_list = [x['service'] for x in service_names]
-    query = SQLFORM.factory(Field('service', requires=IS_IN_LIST(service_names_list)))
-    if query.process().accepted:
-        session.query = query.vars.service
+    q = SQLFORM.factory(Field('service', requires=IS_IN_SET(service_names_list)))
+    if q.process().accepted:
+        session.q = q
         redirect(URL('results'))
-
-    return dict(query=query, session=session)
+    return dict(q=q, session=session)
 
 def results():
+<<<<<<< HEAD
     c = db((db.services.service == session.query) & (db.offers.service_id == db.services.id) & (db.offers.clinic_id == db.clinics.id)).select()
     return dict(results=c)
 >>>>>>> parent of 84a73b9... Changed to a many to many relationship
+=======
+    results = db((db.services.service == session.q))
+    return dict(results=results)
+>>>>>>> 84a73b9... Changed to a many to many relationship
 
 def view():
     clinic = db.clinics(request.args[0]) or redirect(URL('index'))
     return dict(clinic=clinic)
-    
+
 def providers():
     return dict()
 
@@ -43,71 +51,86 @@ def manage():
 def providers():
     return dict()
 
-@auth.requires_login()    
+@auth.requires_login()
 def edit():
     if auth.has_permission('canEditClinic', user_id=auth.user_id):
         clinic = db.clinics(auth.user_id==db.clinics.user)
-        form = SQLFORM(table=db.clinics, record=clinic, deleteable=True)
+        form = SQLFORM(table=db.clinics, record=clinic)
         if form.process().accepted:
             redirect(URL('editservices'))
-        if form.deleted == True:
-            crud.delete(db.services, db.auth_user.services)
-            auth.del_permission(auth.user_id, 'canEditClinic')
-            auth.del_permission(auth.user_id, 'canEditServices')
-            redirect(URL('index'))
         return dict(form=form, clinic=clinic)
     else:
         form = SQLFORM.factory(
-        Field('Organization', requires=IS_NOT_EMPTY(error_message='requires a value')),
-        Field('Address', 'string'),
-        Field('City', 'string'),
-        Field('Zip', 'string'),
-        Field('Phone'),
-        Field('Email', 'string', requires=IS_EMAIL(error_message='must be a valid email')),
-        Field('Description', 'text'),
+        Field('organization', requires=IS_NOT_EMPTY(error_message='requires a value')),
+        Field('address', 'string'),
+        Field('city', 'string'),
+        Field('zip', 'string'),
+        Field('phone'),
+        Field('email', 'string', requires=IS_EMAIL(error_message='must be a valid email')),
+        Field('days_and_hours', 'text'),
+        Field('description', 'text'),
         )
         if form.process().accepted:
-            session.org = form.vars.Organization
-            session.address = form.vars.Address
-            session.city = form.vars.City
-            session.zip = form.vars.Zip
-            session.phone = form.vars.Phone
+            session.org = form.vars.organization
+            session.address = form.vars.address
+            session.city = form.vars.city
+            session.zip = form.vars.zip
+            session.phone = form.vars.phone
             session.email = form.vars.email
-            session.description = form.vars.Description
+            session.description = form.vars.description
             session.clinicid = form.vars.id
+            session.days_hours = form.vars.days_and_hours
             redirect(URL('editservices'))
     return dict(form=form, session=session)
 
-@auth.requires_login() 
+@auth.requires_login()
 def editservices():
     if auth.has_permission('canEditServices', user_id=auth.user_id):
-        clinic = db.clinics(auth.user_id==db.clinics.user)
-        form = SQLFORM(table=db.clinics, record=clinic, deleteable=True)
-        return form
+        redirect(URL('index'))
+        return dict(form=form)
     else:
         form = SQLFORM.factory(
-        Field('STI_Testing', 'boolean'),
-        Field('Emergency_Medical_Services', 'boolean')
+        Field('sti_testing', 'boolean'),
+        Field('emergency_medical_services', 'boolean')
         )
         if form.process().accepted:
             db.clinics.insert(
-            organization = session.org, 
+            organization = session.org,
             street_address = session.address,
             city = session.city,
             zip = session.zip,
             phone = session.phone,
             email = session.email,
+            days_hours = session.days_hours,
             description = session.description
             )
-            db.services.insert(
-            STI_Testing = form.vars.STI_Testing,
-            Emergency_Medical_Services = form.vars.Emergency_Medical_Services,
-            clinic = session.clinicid
-            )
+            if (form.vars.sti_testing):
+                db.offers.insert(
+                    service_id = '8',
+                    clinic_id = session.clinicid
+                )
+            elif (form.vars.emergency_medical_services):
+                db.offers.insert(
+                    service_id = '9',
+                    clinic_id = session.clinicid
+                )
             auth.add_permission(auth.user_id, 'canEditClinic')
             auth.add_permission(auth.user_id, 'canEditServices')
             redirect(URL('index'))
     return dict(form=form, session=session)
+    
+def delete():
+    clinic = db.clinics(request.args[0]) or redirect(URL('index'))
+    form = SQLFORM.factory(Field('Confirm', 'boolean', default=False))
+    if form.process().accepted:
+        db(db.clinics.id == request.args[0]).delete()
+        db(db.offers.id == request.args[0]).delete()
+        auth.del_permission(auth.user_id, 'canEditClinic')
+        auth.del_permission(auth.user_id, 'canEditServices')
+        db.commit()
+        session.flash = T('Your clinic has been deleted')
+        redirect(URL('index'))
+    return dict(form=form, user=auth.user)
 
 def user():
     """

@@ -8,9 +8,9 @@ db.define_table('clinics',
     Field('zip', 'string'),
     Field('email', 'string'),
     Field('phone', 'string'),
-    Field('hours_days', 'text'),
+    Field('days_hours', 'text'),
     Field('description', 'text'),
-    format='%(name)s'
+    format='%(organization)s'
     )
 
 db.define_table('services',
@@ -19,17 +19,24 @@ db.define_table('services',
     Field('clinic', 'reference clinics'),
     )
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 db.clinics.user.writable = db.clinics.user.readable = False    
 =======
     
+=======
+
+>>>>>>> 84a73b9... Changed to a many to many relationship
 db.define_table('offers',
-    Field('service', db.services),
-    Field('clinic', db.clinics),
+    Field('service_id', db.services),
+    Field('clinic_id', db.clinics),
     )
 
-db.clinics.user.writable = db.clinics.user.readable = False 
+db.clinics.user.writable = db.clinics.user.readable = False
 db.clinics.id.writable = False
+<<<<<<< HEAD
 >>>>>>> parent of 84a73b9... Changed to a many to many relationship
 db.clinics.email.requires = IS_EMAIL()
 db.clinics.phone.requires = IS_MATCH('\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$')
+=======
+>>>>>>> 84a73b9... Changed to a many to many relationship
