@@ -2,5 +2,3 @@
 <h2>Edit your clinic's information.</h2>
 <br>
 {{=form}}
-
-{{if auth.has_permission('canEditClinic'):}} {{=A('Does your clinic no longer provide services? Click here to delete your clinic from the database.', _href=URL('delete', args=[clinic.id]))}} {{else:}} {{pass}}

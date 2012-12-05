@@ -8,19 +8,21 @@ db.define_table('clinics',
     Field('zip', 'string'),
     Field('email', 'string'),
     Field('phone', 'string'),
-    Field('days_hours', 'text'),
+    Field('hours_days', 'text'),
     Field('description', 'text'),
-    format='%(organization)s'
+    format='%(name)s'
     )
 
 db.define_table('services',
     Field('service'),
     )
-
+    
 db.define_table('offers',
     Field('service_id', db.services),
     Field('clinic_id', db.clinics),
     )
 
-db.clinics.user.writable = db.clinics.user.readable = False
-db.clinics.id.writable = db.clinics.id.readable = False
+db.clinics.user.writable = db.clinics.user.readable = False 
+db.clinics.id.writable = False
+db.clinics.email.requires = IS_EMAIL()
+db.clinics.phone.requires = IS_MATCH('\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$')

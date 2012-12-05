@@ -2,13 +2,13 @@
 S'clinic'
 p2
 (dp3
-S'sortable'
+S'type'
 p4
-I4
-sS'type'
-p5
 S'reference clinics'
+p5
+sS'sortable'
 p6
+I4
 sS'sql'
 p7
 S'INTEGER REFERENCES clinics (id) ON DELETE CASCADE'
@@ -17,23 +17,23 @@ ssS'sti_testing'
 p9
 (dp10
 g4
-I2
-sg5
 S'boolean'
 p11
+sg6
+I2
 sg7
 S'CHAR(1)'
 p12
 ssS'user'
 p13
 (dp14
-S'type'
+S'sortable'
 p15
-S'reference clinics'
-p16
-sS'sortable'
-p17
 I2
+sS'type'
+p16
+S'reference clinics'
+p17
 sS'sql'
 p18
 S'INTEGER REFERENCES clinics (id) ON DELETE CASCADE'
@@ -41,36 +41,33 @@ p19
 ssS'service'
 p20
 (dp21
-S'type'
+g15
+I3
+sg16
+S'reference service'
 p22
-S'string'
+sg18
+S'INTEGER REFERENCES service (id) ON DELETE CASCADE'
 p23
-sS'sortable'
-p24
-I2
-sS'sql'
-p25
-S'CHAR(512)'
-p26
 ssS'emergency_medical_services'
+p24
+(dp25
+g4
+g11
+sg6
+I3
+sg7
+S'CHAR(1)'
+p26
+ssS'id'
 p27
 (dp28
 g4
-I3
-sg5
-g11
-sg7
-S'CHAR(1)'
-p29
-ssS'id'
-p30
-(dp31
-g22
 S'id'
-p32
-sg24
+p29
+sg6
 I1
-sg25
+sg7
 S'INTEGER PRIMARY KEY AUTOINCREMENT'
-p33
+p30
 ss.
