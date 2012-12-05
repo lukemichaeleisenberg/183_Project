@@ -14,26 +14,13 @@ db.define_table('clinics',
     )
 
 db.define_table('services',
-    Field('STI_Testing', 'boolean'),
-    Field('Emergency_Medical_Services', 'boolean'),
-    Field('clinic', 'reference clinics'),
+    Field('service'),
     )
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    
-=======
 
->>>>>>> 84a73b9... Changed to a many to many relationship
-=======
-
->>>>>>> 84a73b9... Changed to a many to many relationship
 db.define_table('offers',
     Field('service_id', db.services),
     Field('clinic_id', db.clinics),
     )
->>>>>>> parent of 84a73b9... Changed to a many to many relationship
 
 db.clinics.user.writable = db.clinics.user.readable = False
 db.clinics.id.writable = db.clinics.id.readable = False

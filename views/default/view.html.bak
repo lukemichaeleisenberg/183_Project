@@ -1,0 +1,7 @@
+{{extend 'layout.html'}}
+<h1>{{=note.title}}</h1>
+<p>{{=note.body}}</p>
+
+{{=A('Return ', _href=URL('index'))}}
+{{=P(A('Delete', _href=URL('delete', args=[note.id])))}}
+{{pass}}

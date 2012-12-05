@@ -1,0 +1,118 @@
+timestamp: 2012-10-30T16:41:39.458268
+CREATE TABLE auth_user(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name CHAR(128),
+    last_name CHAR(128),
+    email CHAR(512),
+    password CHAR(512),
+    registration_key CHAR(512),
+    reset_password_key CHAR(512),
+    registration_id CHAR(512)
+);
+success!
+timestamp: 2012-10-30T16:41:39.460599
+CREATE TABLE auth_group(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    role CHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2012-10-30T16:41:39.462844
+CREATE TABLE auth_membership(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
+    group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE
+);
+success!
+timestamp: 2012-10-30T16:41:39.464847
+CREATE TABLE auth_permission(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE,
+    name CHAR(512),
+    table_name CHAR(512),
+    record_id INTEGER
+);
+success!
+timestamp: 2012-10-30T16:41:39.466690
+CREATE TABLE auth_event(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    time_stamp TIMESTAMP,
+    client_ip CHAR(512),
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
+    origin CHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2012-10-30T16:41:39.469414
+CREATE TABLE auth_cas(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
+    created_on TIMESTAMP,
+    service CHAR(512),
+    ticket CHAR(512),
+    renew CHAR(1)
+);
+success!
+timestamp: 2012-10-30T16:41:39.474295
+CREATE TABLE clinics(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(512),
+    image CHAR(512),
+    email CHAR(512),
+    phone CHAR(512),
+    address CHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2012-10-30T16:46:00.709998
+ALTER TABLE clinics ADD seller INTEGER REFERENCES auth_user (id) ON DELETE CASCADE;
+timestamp: 2012-10-30T16:50:54.602078
+ALTER TABLE clinics ADD user INTEGER REFERENCES auth_user (id) ON DELETE CASCADE;
+timestamp: 2012-11-05T14:47:38.901663
+ALTER TABLE clinics ADD services INTEGER REFERENCES services (id) ON DELETE CASCADE;
+timestamp: 2012-11-05T14:47:38.965105
+CREATE TABLE service(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    service CHAR(512)
+);
+success!
+timestamp: 2012-11-05T14:48:33.347100
+CREATE TABLE services(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user INTEGER REFERENCES clinics (id) ON DELETE CASCADE,
+    service INTEGER REFERENCES service (id) ON DELETE CASCADE
+);
+success!
+timestamp: 2012-11-05T14:50:49.209254
+ALTER TABLE service ADD name CHAR(512);
+timestamp: 2012-11-05T14:51:44.497392
+ALTER TABLE service ADD thing CHAR(512);
+timestamp: 2012-11-24T20:40:11.634444
+ALTER TABLE services ADD sti_testing CHAR(1);
+timestamp: 2012-11-24T20:40:11.665884
+ALTER TABLE services ADD emergency_medical_services CHAR(1);
+timestamp: 2012-11-28T23:52:33.069055
+ALTER TABLE clinics ADD city CHAR(512);
+timestamp: 2012-11-28T23:52:33.095614
+ALTER TABLE clinics ADD zip CHAR(512);
+timestamp: 2012-11-28T23:52:33.098818
+ALTER TABLE clinics ADD street_address CHAR(512);
+timestamp: 2012-11-29T00:21:16.334358
+ALTER TABLE services ADD clinic INTEGER REFERENCES clinics (id) ON DELETE CASCADE;
+timestamp: 2012-11-29T01:18:58.253954
+ALTER TABLE auth_user ADD clinic CHAR(512);
+timestamp: 2012-11-29T01:18:58.255629
+ALTER TABLE auth_user ADD services CHAR(512);
+timestamp: 2012-11-29T15:50:10.826108
+ALTER TABLE clinics ADD hours_days TEXT;
+timestamp: 2012-11-29T16:06:29.467662
+ALTER TABLE clinics ADD organization CHAR(512);
+timestamp: 2012-12-03T16:07:18.676480
+CREATE TABLE offers(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    service_id INTEGER REFERENCES services (id) ON DELETE CASCADE,
+    clinic_id INTEGER REFERENCES clinics (id) ON DELETE CASCADE
+);
+success!
+timestamp: 2012-12-04T17:41:38.234433
+ALTER TABLE clinics ADD days_hours TEXT;

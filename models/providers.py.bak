@@ -14,23 +14,9 @@ db.define_table('clinics',
     )
 
 db.define_table('services',
-    Field('STI_Testing', 'boolean'),
-    Field('Emergency_Medical_Services', 'boolean'),
-    Field('clinic', 'reference clinics'),
+    Field('service'),
     )
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-db.clinics.user.writable = db.clinics.user.readable = False    
-=======
-    
-=======
-
->>>>>>> 84a73b9... Changed to a many to many relationship
-=======
-
->>>>>>> 84a73b9... Changed to a many to many relationship
 db.define_table('offers',
     Field('service_id', db.services),
     Field('clinic_id', db.clinics),
@@ -38,12 +24,3 @@ db.define_table('offers',
 
 db.clinics.user.writable = db.clinics.user.readable = False
 db.clinics.id.writable = False
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> parent of 84a73b9... Changed to a many to many relationship
-db.clinics.email.requires = IS_EMAIL()
-db.clinics.phone.requires = IS_MATCH('\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$')
-=======
->>>>>>> 84a73b9... Changed to a many to many relationship
-=======
->>>>>>> 84a73b9... Changed to a many to many relationship

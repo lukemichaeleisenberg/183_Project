@@ -41,32 +41,9 @@ p19
 ssS'service'
 p20
 (dp21
-<<<<<<< HEAD
-<<<<<<< HEAD
-g15
-<<<<<<< HEAD
-S'reference service'
-p22
-sg17
-I3
-=======
-I3
-sg16
-S'reference service'
-p22
->>>>>>> parent of 84a73b9... Changed to a many to many relationship
-sg18
-S'INTEGER REFERENCES service (id) ON DELETE CASCADE'
-=======
 S'type'
 p22
 S'string'
->>>>>>> 84a73b9... Changed to a many to many relationship
-=======
-S'type'
-p22
-S'string'
->>>>>>> 84a73b9... Changed to a many to many relationship
 p23
 sS'sortable'
 p24
