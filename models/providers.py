@@ -15,6 +15,7 @@ db.define_table('clinics',
 
 db.define_table('services',
     Field('service'),
+    format='%(service)s'
     )
 
 db.define_table('offers',

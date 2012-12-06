@@ -15,6 +15,7 @@ db.define_table('clinics',
 
 db.define_table('services',
     Field('service'),
+    format='%(service)s'
     )
 
 db.define_table('offers',
@@ -23,4 +24,4 @@ db.define_table('offers',
     )
 
 db.clinics.user.writable = db.clinics.user.readable = False
-db.clinics.id.writable = False
+db.clinics.id.writable = db.clinics.id.readable = False

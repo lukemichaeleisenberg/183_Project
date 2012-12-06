@@ -5,12 +5,12 @@ def index():
     service_names_list = [x['service'] for x in service_names]
     q = SQLFORM.factory(Field('service', requires=IS_IN_SET(service_names_list)))
     if q.process().accepted:
-        session.q = q
+        session.q = q.vars.service
         redirect(URL('results'))
     return dict(q=q, session=session)
 
 def results():
-    results = db((db.services.service == session.q)).select()
+    results = db((db.services.service == session.query) & (db.services.id == db.offers.service_id) & (db.offers.clinic_id == db.clinics.id)).select(db.clinics.ALL)
     return dict(results=results)
 
 def view():
@@ -96,7 +96,7 @@ def editservices():
             auth.add_permission(auth.user_id, 'canEditServices')
             redirect(URL('index'))
     return dict(form=form, session=session)
-    
+
 def delete():
     clinic = db.clinics(request.args[0]) or redirect(URL('index'))
     form = SQLFORM.factory(Field('Confirm', 'boolean', default=False))
