@@ -2,13 +2,13 @@
 S'clinic'
 p2
 (dp3
-S'sortable'
+S'type'
 p4
-I4
-sS'type'
-p5
 S'reference clinics'
+p5
+sS'sortable'
 p6
+I4
 sS'sql'
 p7
 S'INTEGER REFERENCES clinics (id) ON DELETE CASCADE'
@@ -17,23 +17,23 @@ ssS'sti_testing'
 p9
 (dp10
 g4
-I2
-sg5
 S'boolean'
 p11
+sg6
+I2
 sg7
 S'CHAR(1)'
 p12
 ssS'user'
 p13
 (dp14
-S'type'
+S'sortable'
 p15
-S'reference clinics'
-p16
-sS'sortable'
-p17
 I2
+sS'type'
+p16
+S'reference clinics'
+p17
 sS'sql'
 p18
 S'INTEGER REFERENCES clinics (id) ON DELETE CASCADE'
@@ -56,9 +56,9 @@ ssS'emergency_medical_services'
 p27
 (dp28
 g4
-I3
-sg5
 g11
+sg6
+I3
 sg7
 S'CHAR(1)'
 p29

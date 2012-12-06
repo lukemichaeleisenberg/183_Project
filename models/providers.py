@@ -8,6 +8,7 @@ db.define_table('clinics',
     Field('zip', 'string'),
     Field('email', 'string'),
     Field('phone', 'string'),
+    Field('services','list:reference services'),
     Field('days_hours', 'text'),
     Field('description', 'text'),
     format='%(organization)s'
@@ -18,10 +19,7 @@ db.define_table('services',
     format='%(service)s'
     )
 
-db.define_table('offers',
-    Field('service_id', db.services),
-    Field('clinic_id', db.clinics),
-    )
-
 db.clinics.user.writable = db.clinics.user.readable = False
 db.clinics.id.writable = db.clinics.id.readable = False
+db.clinics.email.requires = IS_EMAIL()
+db.clinics.services.requires = IS_IN_DB(db,'services.id', '%(service)s', multiple=True)

@@ -10,7 +10,7 @@ def index():
     return dict(q=q, session=session)
 
 def results():
-    results = db((db.services.service == session.q) & (db.services.id == db.offers.service_id) & (db.offers.clinic_id == db.clinics.id)).select(db.clinics.ALL)
+    results = db((db.services.service == session.query) & (db.services.id == db.offers.service_id) & (db.offers.clinic_id == db.clinics.id)).select(db.clinics.ALL)
     return dict(results=results)
 
 def view():
@@ -35,65 +35,23 @@ def edit():
         clinic = db.clinics(auth.user_id==db.clinics.user)
         form = SQLFORM(table=db.clinics, record=clinic)
         if form.process().accepted:
-            redirect(URL('editservices'))
+            redirect(URL('index'))
         return dict(form=form, clinic=clinic)
     else:
-        form = SQLFORM.factory(
-        Field('organization', requires=IS_NOT_EMPTY(error_message='requires a value')),
-        Field('address', 'string'),
-        Field('city', 'string'),
-        Field('zip', 'string'),
-        Field('phone'),
-        Field('email', 'string', requires=IS_EMAIL(error_message='must be a valid email')),
-        Field('days_and_hours', 'text'),
-        Field('description', 'text'),
-        )
-        if form.process().accepted:
-            session.org = form.vars.organization
-            session.address = form.vars.address
-            session.city = form.vars.city
-            session.zip = form.vars.zip
-            session.phone = form.vars.phone
-            session.email = form.vars.email
-            session.description = form.vars.description
-            session.clinicid = form.vars.id
-            session.days_hours = form.vars.days_and_hours
-            redirect(URL('editservices'))
-    return dict(form=form, session=session)
-
-@auth.requires_login()
-def editservices():
-    if auth.has_permission('canEditServices', user_id=auth.user_id):
-        redirect(URL('index'))
-        return dict(form=form)
-    else:
-        form = SQLFORM.factory(
-        Field('sti_testing', 'boolean'),
-        Field('emergency_medical_services', 'boolean')
+        form = SQLFORM(table=db.clinics
         )
         if form.process().accepted:
             db.clinics.insert(
-            organization = session.org,
-            street_address = session.address,
-            city = session.city,
-            zip = session.zip,
-            phone = session.phone,
-            email = session.email,
-            days_hours = session.days_hours,
-            description = session.description
+            organization = form.vars.organization,
+            street_address = form.vars.address,
+            city = form.vars.city,
+            zip = form.vars.zip,
+            phone = form.vars.phone,
+            email = form.vars.email,
+            days_hours = form.vars.days_and_hours,
+            description = form.vars.description
             )
-            if (form.vars.sti_testing):
-                db.offers.insert(
-                    service_id = '8',
-                    clinic_id = session.clinicid
-                )
-            elif (form.vars.emergency_medical_services):
-                db.offers.insert(
-                    service_id = '9',
-                    clinic_id = session.clinicid
-                )
             auth.add_permission(auth.user_id, 'canEditClinic')
-            auth.add_permission(auth.user_id, 'canEditServices')
             redirect(URL('index'))
     return dict(form=form, session=session)
 
