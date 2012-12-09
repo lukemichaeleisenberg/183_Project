@@ -11,7 +11,8 @@ def results():
     grid = SQLFORM.grid(query = db.clinics.services.contains(session.q),
              deletable=False,
              editable=False,
-             create=False)
+             create=False,
+             csv=False)
     return dict(grid=grid)
 
 def providers():
@@ -44,6 +45,7 @@ def edit():
 def delete():
     clinic = db.clinics(request.args[0]) or redirect(URL('index'))
     form = SQLFORM.factory(Field('Confirm', 'boolean', default=False))
+    form.add_button('Cancel', URL('edit'))
     if form.process().accepted:
         db(db.clinics.id == request.args[0]).delete()
         auth.del_permission(auth.user_id, 'canEditClinic')
