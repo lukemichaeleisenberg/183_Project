@@ -8,12 +8,21 @@ def index():
     return dict(q=q, session=session)
 
 def results():
-    grid = SQLFORM.grid(query = db.clinics.services.contains(session.q),
+    if session.q:
+        grid = SQLFORM.grid(query = db.clinics.services.contains(session.q),
+             fields = [db.clinics.organization, db.clinics.days_hours, db.clinics.description],
              deletable=False,
              editable=False,
              create=False,
              csv=False)
-    return dict(grid=grid)
+        return dict(grid=grid)
+    else:
+        fields = SQLFORM.grid(fields = [db.clinics.organization, db.clinics.days_hours, db.clinics.description],
+             deletable=False,
+             editable=False,
+             create=False,
+             csv=False)
+        return dict(grid=grid)
 
 def providers():
     return dict()
@@ -21,7 +30,7 @@ def providers():
 @auth.requires_login()
 @auth.requires_permission('isAdmin')
 def manage():
-    grid = SQLFORM.grid(db.clinics)
+    grid = SQLFORM.grid(db.clinics, fields = [db.clinics.organization, db.clinics.user, db.clinics.email, db.clinics.phone], csv=False)
     return locals()
 
 def providers():

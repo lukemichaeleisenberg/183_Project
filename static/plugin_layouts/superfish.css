@@ -1,3 +1,4 @@
+
 /*** ESSENTIAL STYLES ***/
 .sf-menu, .sf-menu * {
 	margin:			0;
@@ -23,14 +24,13 @@
 	position:		relative;
 }
 .sf-menu a {
-    padding:        5px;
 	display:		block;
 	position:		relative;
 }
 .sf-menu li:hover ul,
 .sf-menu li.sfHover ul {
 	left:			0;
-	top:			26px; /* match top ul list item height */
+	top:			2.5em; /* match top ul list item height */
 	z-index:		99;
 }
 ul.sf-menu li:hover li ul,
@@ -58,42 +58,31 @@ ul.sf-menu li li li.sfHover ul {
 	/*margin-bottom:	1em;*/
 }
 .sf-menu a {
-	padding-left: 		1em;
-	padding-right: 		1em;
+	border-left:	1px solid #fff;
+	/*border-top:		1px solid #CFDEFF;*/
+	padding: 		.75em 1em;
 	text-decoration:none;
 }
 .sf-menu a, .sf-menu a:visited  { /* visited pseudo selector so IE6 applies text colour*/
-//	color: #959595;
-	background-color: transparent;
-    font-weight: bold;
+	color: #275b90;/*#13a;*/
 }
 .sf-menu li {
-	background-color: transparent;
+	background: #dadada;/*#BDD2FF;*/
 }
 .sf-menu li li {
-	background: #232323;
-        text-align: left;
+	background:		#AABDE6;
 }
 .sf-menu li li a {
-        padding-top: 0.25em;
-        padding-bottom: 0.25em;
-	color: #959595;
+	/*color: #13a;*/
 }
 .sf-menu li li li {
-	background: #232323;
-        text-align: left;
+	background:		#9AAEDB;
 }
-.sf-menu li li li a {
-        padding-top: 0.25em;
-        padding-bottom: 0.25em;
-        color: #959595;
-}
-.sf-menu li:hover, .sf-menu a:focus, .sf-menu a:active, .sf-menu li.sfHover, .sf-menu a:hover {
-	color: #FFFFFF;
-	background-color: #303030;
+.sf-menu li:hover, .sf-menu li.sfHover,
+.sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active {
+	background:		#CFDEFF;
 	outline:		0;
 }
-
 
 /*** arrows **/
 .sf-menu a.sf-with-ul {
@@ -147,80 +136,4 @@ li.sfHover > a > .sf-sub-indicator {
 }
 .sf-shadow ul.sf-shadow-off {
 	background: transparent;
-}
-
-/*
-*Grid
-*
-* The default style for SQLFORM.grid even using jquery-iu or another ui framework
-* will look better with the declarations below
-* if needed to remove base.css consider keeping these following lines in some css file.
-*/
-// .web2py_table {border:1px solid #ccc}
-.web2py_paginator {}
-.web2py_grid {width:100%}
-.web2py_grid table {width:100%}
-.web2py_grid tbody td {padding:2px 5px 2px 5px; vertical-align: middle;}
-
-.web2py_grid thead th,.web2py_grid tfoot td {
-    background-color:#EAEAEA;
-    padding:10px 5px 10px 5px;
-}
-
-.web2py_grid tr.odd {background-color:#F9F9F9}
-.web2py_grid tr:hover {background-color:#F5F5F5}
-
-/*
-.web2py_breadcrumbs a {
-    line-height:20px; margin-right:5px; display:inline-block;
-    padding:3px 5px 3px 5px;
-    font-family:'lucida grande',tahoma,verdana,arial,sans-serif;
-    color:#3C3C3D;
-    text-shadow:1px 1px 0 #FFFFFF;
-    white-space:nowrap; overflow:visible; cursor:pointer;
-    background:#ECECEC;
-    border:1px solid #CACACA;
-    -webkit-border-radius:2px; -moz-border-radius:2px;
-    -webkit-background-clip:padding-box; border-radius:2px;
-    outline:none; position:relative; zoom:1; *display:inline;
-}
-*/
-
-.web2py_console form {
-    width: 100%;
-    display: inline;
-    vertical-align: middle;
-    margin: 0 0 0 5px;
-}
-
-.web2py_console form select {
-    margin:0;
-}
-
-.web2py_search_actions {
-    float:left;
-    text-align:left;
-}
-
-.web2py_grid .row_buttons {
-    min-height:25px;
-    vertical-align:middle;
-}
-.web2py_grid .row_buttons a {
-    margin:3px;
-}
-
-.web2py_search_actions {
-    width:100%;
-}
-
-.web2py_grid .row_buttons a,
-.web2py_paginator ul li a,
-.web2py_search_actions a,
-.web2py_console input[type=submit],
-.web2py_console input[type=button],
-.web2py_console button {
-    line-height:20px;
-    margin-right:2px; display:inline-block;
-    padding:3px 5px 3px 5px;
 }
